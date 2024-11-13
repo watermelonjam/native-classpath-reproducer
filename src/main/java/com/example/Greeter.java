@@ -58,7 +58,9 @@ public class Greeter {
       throw new UncheckedIOException(e);
     }
     
-    
+    if (greetings.isEmpty()) {
+      throw new IllegalStateException("Greeting service has no greetings");
+    }
   }
 
   private String getRandomGreeting() {
