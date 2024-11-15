@@ -38,15 +38,19 @@ public class Greeter {
   private List<String> greetings = new ArrayList<>();
 
   public Greeter() {
-    try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("configs");
+    try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("META-INF/native-classpath-reproducer.resources");
         BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-      LOG.debug("Scanning configs classpath folder");
+      LOG.debug("Scanning greeting resources");
       
       String filename;
       while ((filename = br.readLine()) != null) {
-        LOG.debugf("Reading config file %s", filename);
+        if (!filename.contains("configs")) {
+          LOG.debugf("Skipping resource %s", filename);
+          continue;
+        }
+        LOG.debugf("Reading greeting config resource %s", filename);
         try (
-            InputStream in2 = Thread.currentThread().getContextClassLoader().getResourceAsStream("configs/" + filename);
+            InputStream in2 = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
             BufferedReader br2 = new BufferedReader(new InputStreamReader(in2))) {
           String greeting;
           while ((greeting = br2.readLine()) != null) {

@@ -71,6 +71,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>com.github.robtimus</groupId>
+        <artifactId>resource-list-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>list-resources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
